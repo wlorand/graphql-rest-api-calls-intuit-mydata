@@ -1,7 +1,7 @@
 import {
   DOCUMENT_SERVICE_BASE_URL,
   BOX_API_DOWNLOAD_BASE_URL,
-  BOX_FIELD_DOWNLOAD_URL
+  BOX_FIELD_DOWNLOAD_URL,
 } from '../../constants';
 import { getHandledServiceRequest } from '../ServiceHandler';
 import { callHandleServiceRequest, getRequestInfo } from './mydata-work-orders';
@@ -21,7 +21,7 @@ export function getBoxFilesDownloadLinks(documentIds, accessTokenString) {
     Authorization: `Bearer ${accessTokenString}`,
     'Content-Type': 'application/zip',
     'Content-Description': 'File Transfer',
-    'Accept-Encoding': 'gzip, compress, deflate'
+    'Accept-Encoding': 'gzip, compress, deflate',
   };
   const pluginName = 'iam-account-manager-ui';
   const serviceName = 'mydata-get-box-files-download-links';
@@ -31,11 +31,11 @@ export function getBoxFilesDownloadLinks(documentIds, accessTokenString) {
       getHandledServiceRequest(
         {
           pluginName,
-          serviceName
+          serviceName,
         },
         (resolve, reject) => {
           fetch(boxUrl, {
-            headers: boxHeaders
+            headers: boxHeaders,
           })
             .then((response) => response.json())
             .then((data) => {
@@ -52,7 +52,7 @@ export function getBoxFilesDownloadLinks(documentIds, accessTokenString) {
     response.forEach((boxcloudUrl) => {
       boxcloudUrls.push(Promise.resolve(boxcloudUrl.response));
     });
-    // 3- perform the actual download
+    // 3- call fxn in bl file to perform the actual download
     downloadZipFiles(boxcloudUrls);
   });
 }

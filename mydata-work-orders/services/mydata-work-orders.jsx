@@ -3,7 +3,7 @@ import {
   DG_ORCHESTRATOR_BASE_URL,
   PASSWORD_VERIFICATION_BASE_URL,
   CONSENT_SERVICE_BASE_URL,
-  DELEGATION_SERVICE_BASE_URL
+  DELEGATION_SERVICE_BASE_URL,
 } from '../../constants';
 import { getHandledServiceRequest } from '../ServiceHandler';
 import { uuidv4 } from '../utils';
@@ -22,11 +22,11 @@ export function getRequestInfo(env, apiURL, apiKey, prodApiKey) {
   const requestHeaders = {
     Authorization: `Intuit_APIKey intuit_apikey=${API_KEY}, intuit_apikey_version=1.0`,
     'Content-Type': 'application/json; charset=utf-8',
-    intuit_originatingip: '127.0.0.1' //TODO this is issue from Delegation access API and needs to be removed as soon as issue is fixed
+    intuit_originatingip: '127.0.0.1', //TODO this is issue from Delegation access API and needs to be removed as soon as issue is fixed
   };
   return {
     url: url,
-    header: requestHeaders
+    header: requestHeaders,
   };
 }
 
@@ -46,7 +46,7 @@ export function callHandleServiceRequest(
   return getHandledServiceRequest(
     {
       pluginName,
-      serviceName
+      serviceName,
     },
     (resolve, reject) => {
       fetch(requestInfo.url, {
@@ -55,7 +55,7 @@ export function callHandleServiceRequest(
         headers: requestInfo.header,
         timeout: API_REQUEST_TIMEOUT,
         cache: 'no-cache',
-        credentials: 'include'
+        credentials: 'include',
       })
         // eslint-disable-next-line no-confusing-arrow
         .then((res) => {
@@ -179,7 +179,7 @@ export function postConsent(purpose, userId, consented, env) {
         resource: 'data-governance',
         purpose: purpose,
         applicationId: '',
-        consented
+        consented,
       },
       {
         ownerId: userId,
@@ -188,9 +188,9 @@ export function postConsent(purpose, userId, consented, env) {
         resource: 'dg-consents',
         purpose: 'dg-consents',
         applicationId: '',
-        consented
-      }
-    ]
+        consented,
+      },
+    ],
   };
   const requestInfo = getRequestInfo(env, CONSENT_SERVICE_BASE_URL, '', '');
 
@@ -207,7 +207,7 @@ export function postDelegation(userId, env) {
   const bodyParams = {
     actions: 'dg-consents',
     subjectId: '50000000',
-    resourceOwnerId: userId
+    resourceOwnerId: userId,
   };
   const requestInfo = getRequestInfo(env, DELEGATION_SERVICE_BASE_URL, '', '');
   return callHandleServiceRequest(
@@ -223,7 +223,7 @@ export function deleteDelegation(userId, env) {
   const bodyParams = {
     actions: 'dg-consents',
     subjectId: '50000000',
-    resourceOwnerId: userId
+    resourceOwnerId: userId,
   };
   const requestInfo = getRequestInfo(env, DELEGATION_SERVICE_BASE_URL, '', '');
   return callHandleServiceRequest(
@@ -299,7 +299,7 @@ export function createDownloadWorkOrders(
 export function verifyPassword(userName, password, env) {
   const bodyParams = {
     username: userName,
-    password: password
+    password: password,
   };
   const requestInfo = getRequestInfo(
     env,
