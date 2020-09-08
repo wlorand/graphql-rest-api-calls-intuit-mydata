@@ -11,6 +11,7 @@ import 'whatwg-fetch'; // fetch polyfill
 
 export function getRequestInfo(env, apiURL, apiKey, prodApiKey) {
   const environment = ['qal', 'prf', 'e2e', 'prod'].includes(env) ? env : '';
+  // TODO: This should be moved to an .env file and use dotenv package to manage
   const API_KEY = ['', 'prd', 'prod'].includes(environment)
     ? prodApiKey
     : apiKey;
@@ -81,6 +82,7 @@ function injectMockServer(requestInfo, url, params) {
 }
 
 export function getWorkOrders(env, userId, params) {
+  // TODO Refactor this to use GraphQL Input Types to improve readability
   const query = `{"query":"query getWorkOrders {
   dataGovernanceWorkOrderHolder {
     workOrders(filterBy: \\"authId = '${userId}'\\") {
@@ -117,6 +119,7 @@ export function getWorkOrders(env, userId, params) {
 }
 
 export function createDeleteWorkOrders(env, userId, selectedProducts, params) {
+  // TODO: Refactor to use Input Types to imporive readability
   const mutation = `{"query":"mutation createDeleteWorkOrder {
       createDataregulations_DataGovernanceWorkOrder(input : {
       clientMutationId: \\"1\\",
@@ -204,6 +207,7 @@ export function postConsent(purpose, userId, consented, env) {
 }
 
 export function postDelegation(userId, env) {
+  // TODO: Identify this as a REST API Call - perhaps make sep file
   const bodyParams = {
     actions: 'dg-consents',
     subjectId: '50000000',
@@ -241,6 +245,7 @@ export function createDownloadWorkOrders(
   selectedProducts,
   params
 ) {
+  // TODO: Refactor to use Input Types to imporive readability
   const mutation = `{
    "query":"mutation createGetWorkOrder {
   createDataregulations_DataGovernanceWorkOrder(input : {
@@ -318,6 +323,8 @@ export function verifyPassword(userName, password, env) {
 }
 
 export function cancelWorkOrders(env, workOrderId, params) {
+  // TODO: Refactor to use Input Types to imporive readability
+  // Also need better variable name than the generic 'mutation'
   const mutation = `{"query":"mutation updateWorkOrder {
       updateDataregulations_DataGovernanceWorkOrder(input: {
         clientMutationId: \\"1\\",
