@@ -47,9 +47,9 @@ export function getBoxFilesDownloadLinks(documentIds, accessTokenString) {
     );
   });
 
-  Promise.all(promisesArray).then((response) => {
+  Promise.all(promisesArray).then((res) => {
     const boxcloudUrls = [];
-    response.forEach((boxcloudUrl) => {
+    res.forEach((boxcloudUrl) => {
       boxcloudUrls.push(Promise.resolve(boxcloudUrl.response));
     });
     // 3- call fxn in bl file to perform the actual download

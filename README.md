@@ -1,6 +1,6 @@
-# mydata-api-calls-code-samples
+# GraphQL + REST API calls Intuit MyData
 
-GraphQL and REST API Calls from the My Data &amp; Privacy Card of Account Manager app at accounts.intuit.com
+GraphQL and REST API Calls from the My Data &amp; Privacy Card of Intuit Account Manager app at accounts.intuit.com
 
-1- MyData File Download (REST API, External Box.com API)<br />
-2- MyData Work Orders (GraphQL API)<br />
+1- MyData Work Orders (GraphQL API)<br />
+2- MyData File Download (REST API, external Box.com API)<br />
